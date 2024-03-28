@@ -8,6 +8,15 @@ import (
 	"github.com/google/go-cmp/cmp/cmpopts"
 )
 
+// Diff compares wand and have, returns a colored diff of their differences or an empty string if they are equal.
+func Diff[T any](want, have T, opts ...cmp.Option) string {
+	return diff(want, have, opts...)
+}
+
+// Error is a test helper function for comparing two objects of the same type T.
+//
+// If want and have are not equal, msg and a colored-diff will be sent to t.Error.
+// If want is of type error, cmpOpts.EquateErrors will automatically be called.
 func Error[T any](t *testing.T, msg string, want, have T, opts ...cmp.Option) {
 	t.Helper()
 	if d := diff(want, have, opts...); d != "" {
@@ -15,6 +24,10 @@ func Error[T any](t *testing.T, msg string, want, have T, opts ...cmp.Option) {
 	}
 }
 
+// Fatal is a test helper function for comparing two objects of the same type T.
+//
+// If want and have are not equal, msg and a colored-diff will be sent to t.Fatal.
+// If want is of type error, cmpOpts.EquateErrors will automatically be called.
 func Fatal[T any](t *testing.T, msg string, want, have T, opts ...cmp.Option) {
 	t.Helper()
 	if d := diff(want, have, opts...); d != "" {
@@ -23,14 +36,10 @@ func Fatal[T any](t *testing.T, msg string, want, have T, opts ...cmp.Option) {
 }
 
 const (
-	red   = "\x1b[31m"
-	green = "\x1b[32m"
-	clear = "\x1b[0m"
+	red   = "\x1b[31m" // set the terminal red color
+	green = "\x1b[32m" // set the terminal green color
+	clear = "\x1b[0m"  // clears the terminal color
 )
-
-func Diff[T any](want, have T, opts ...cmp.Option) string {
-	return diff(want, have, opts...)
-}
 
 func diff[T any](want, have T, opts ...cmp.Option) string {
 	switch any(want).(type) {
