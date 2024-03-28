@@ -1,10 +1,11 @@
 package diff
 
 import (
-	"github.com/google/go-cmp/cmp"
-	"github.com/google/go-cmp/cmp/cmpopts"
 	"strings"
 	"testing"
+
+	"github.com/google/go-cmp/cmp"
+	"github.com/google/go-cmp/cmp/cmpopts"
 )
 
 func Error[T any](t *testing.T, msg string, want, have T, opts ...cmp.Option) {
@@ -26,6 +27,10 @@ const (
 	green = "\x1b[32m"
 	clear = "\x1b[0m"
 )
+
+func Diff[T any](want, have T, opts ...cmp.Option) string {
+	return diff(want, have, opts...)
+}
 
 func diff[T any](want, have T, opts ...cmp.Option) string {
 	switch any(want).(type) {
