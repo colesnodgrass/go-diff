@@ -8,6 +8,9 @@ import (
 	"github.com/google/go-cmp/cmp/cmpopts"
 )
 
+// Color determines if colored output should be utilized
+var Color = true
+
 // Diff compares wand and have, returns a colored diff of their differences or an empty string if they are equal.
 func Diff[T any](want, have T, opts ...cmp.Option) string {
 	return diff(want, have, opts...)
@@ -50,8 +53,8 @@ func diff[T any](want, have T, opts ...cmp.Option) string {
 	}
 
 	d := cmp.Diff(want, have, opts...)
-	if d == "" {
-		return ""
+	if !Color || d == "" {
+		return d
 	}
 
 	splits := strings.Split(d, "\n")
