@@ -1,4 +1,4 @@
-module github.com/colesnodgrass/go-cmp-diff
+module github.com/colesnodgrass/go-diff
 
 go 1.24.5
 
