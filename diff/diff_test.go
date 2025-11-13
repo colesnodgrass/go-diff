@@ -1,9 +1,10 @@
 package diff
 
 import (
-	"github.com/google/go-cmp/cmp"
 	"strings"
 	"testing"
+
+	"github.com/google/go-cmp/cmp"
 )
 
 func Test_diff(t *testing.T) {
@@ -52,7 +53,7 @@ func Test_diff(t *testing.T) {
 			if d := cmp.Diff(tt.expGreen, strings.Count(df, green)); d != "" {
 				t.Error("red count", d)
 			}
-			if d := cmp.Diff(tt.expClear, strings.Count(df, clear)); d != "" {
+			if d := cmp.Diff(tt.expClear, strings.Count(df, reset)); d != "" {
 				t.Error("red count", d)
 			}
 		})

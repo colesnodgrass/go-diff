@@ -41,7 +41,7 @@ func Fatal[T any](t *testing.T, msg string, want, have T, opts ...cmp.Option) {
 const (
 	red   = "\x1b[31m" // set the terminal red color
 	green = "\x1b[32m" // set the terminal green color
-	clear = "\x1b[0m"  // clears the terminal color
+	reset = "\x1b[0m"  // clears the terminal color
 )
 
 func diff[T any](want, have T, opts ...cmp.Option) string {
@@ -61,9 +61,9 @@ func diff[T any](want, have T, opts ...cmp.Option) string {
 	for i, s := range splits {
 		switch {
 		case strings.HasPrefix(s, "-"):
-			splits[i] = red + s + clear
+			splits[i] = red + s + reset
 		case strings.HasPrefix(s, "+"):
-			splits[i] = green + s + clear
+			splits[i] = green + s + reset
 		}
 	}
 
